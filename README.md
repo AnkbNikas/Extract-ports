@@ -1,54 +1,53 @@
 # Extract-ports
 
-La función extractPorts está diseñada para extraer direcciones IP y puertos abiertos desde un archivo (generalmente un resultado de un escaneo de Nmap). 
-
 Este script es útil para automatizar la extracción de puertos abiertos e IPs desde un archivo de resultados de Nmap y copiarlos al portapapeles para usarlos más fácilmente.
 
 Requisitos:
 
-1. Linux o sistema compatible con bash: Este script está diseñado para entornos Unix (Linux, macOS, etc.) con acceso a la terminal.
+Un sistema basado en Linux.
 
-2. Herramientas necesarias:
+Nmap: Instalado en tu sistema. Puedes instalarlo utilizando tu gestor de paquetes.
 
-grep: Para filtrar información en el archivo.
+xclip: Instalado para copiar el texto al portapapeles. Puedes instalarlo utilizando tu gestor de paquetes.
 
-awk: Para manipular el formato de la salida.
+Archivo de salida de Nmap: Un archivo de texto generado por Nmap que contiene la salida del escaneo.
 
-xargs: Para manejar la lista de puertos.
+Instalación de Nmap y xclip:
 
-tr: Para transformar caracteres, en este caso, cambiar espacios por comas.
+Para instalar Nmap y xclip, abre una terminal y ejecuta los siguientes comandos dependiendo de tu distribución de Linux:
 
-xclip: Para copiar la lista de puertos al portapapeles (necesitarás instalarlo si no está presente).
+En Ubuntu/Debian:
 
-Pasos para hacer funcionar el script:
+sudo apt-get update
+sudo apt-get install nmap xclip
 
-1. Instalar xclip (si no está instalado): Si no tienes xclip, puedes instalarlo usando el siguiente comando en una terminal (para distribuciones basadas en Debian como Ubuntu):
+En Fedora:
 
-sudo apt-get install xclip
+sudo dnf install nmap xclip
 
-En otros sistemas, usa el gestor de paquetes correspondiente.
+En Arch Linux:
 
-2. Copia el código del script y guárdalo en un archivo, por ejemplo extract_ports.sh.
+sudo pacman -S nmap xclip
 
+Uso de la Herramienta:
 
-3. Cambia los permisos del archivo para hacerlo ejecutable:
+Crea un archivo llamado extractPorts.sh y copia el script.
 
-chmod +x extract_ports.sh
+Abre una terminal, navega al directorio donde guardaste extractPorts.sh y ejecuta el siguiente comando para hacer el archivo ejecutable:
 
-4. Para ejecutar el script, simplemente pasa el archivo de resultados de Nmap como argumento. Por ejemplo:
+chmod +x extractPorts.sh
 
-./extract_ports.sh nmap_result.txt
+Realiza un escaneo de Nmap y guarda la salida en un archivo de texto. Por ejemplo:
 
-Aquí nmap_result.txt es el archivo que contiene los resultados del escaneo de Nmap.
+nmap -sVC -oN nmap_output.txt <target_ip>
 
+Ejecuta el script extractPorts.sh pasando el archivo de salida de Nmap como argumento:
 
-Posibles errores y soluciones:
+./extractPorts.sh nmap_output.txt
 
-1. Si no tienes xclip: El script intentará usar xclip para copiar los puertos al portapapeles. Si no tienes xclip instalado y no quieres instalarlo, puedes comentar o eliminar la línea que usa xclip:
+La herramienta extraerá la dirección IP y los puertos abiertos del archivo de salida de Nmap, los mostrará en la terminal y copiará los puertos abiertos al portapapeles.
 
-# echo $ports | tr -d '\n' | xclip -sel clip
-
-2. Archivo de entrada vacío o mal formato: Si el archivo de resultados de Nmap no tiene un formato esperado, el script podría no extraer correctamente los puertos o la IP. Asegúrate de que el archivo contenga resultados de un escaneo de Nmap válido.
+Ejemplo de Salida:
 
 
 
